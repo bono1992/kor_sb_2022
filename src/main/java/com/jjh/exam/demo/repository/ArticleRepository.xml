@@ -2,28 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.jjh.exam.demo.repository.ArticleRepository">
+	namespace="com.khj.exam.demo.repository.ArticleRepository">
 	<insert id="writeArticle">
 		INSERT INTO article
 		SET regDate = NOW(),
 		updateDate = NOW(),
+		memberId = #{memberId},
 		title = #{title},
 		`body` = #{body}
 	</insert>
-
-	<select id="getArticles" resultType="Article">
-		SELECT *
-		FROM article
-		ORDER BY
-		id DESC
-	</select>
-
-	<select id="getArticle" resultType="Article">
-		SELECT *
-		FROM article
-		WHERE 1
-		AND id = #{id}
-	</select>
 
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
@@ -44,8 +31,8 @@
 			<if test="body != null and body != ''">
 				`body` = #{body},
 			</if>
+			updateDate = NOW()
 		</set>
-		updateDate = NOW()
 		WHERE id = #{id}
 	</update>
 </mapper> 
